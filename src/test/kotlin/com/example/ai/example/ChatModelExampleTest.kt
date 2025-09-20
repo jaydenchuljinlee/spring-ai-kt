@@ -2,6 +2,7 @@ package com.example.ai.example
 
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.chat.model.ChatModel
@@ -26,6 +27,11 @@ class ChatModelExampleTest {
 
     @Autowired(required = false)
     lateinit var evaluator: Evaluator
+
+    @Test
+    fun client_test() {
+        val chatClientBuilder: ChatClient.Builder
+    }
 
     @Test
     @DisplayName("기본적인 시스템 및 사용자 메시지를 사용한 ChatModel 호출")
