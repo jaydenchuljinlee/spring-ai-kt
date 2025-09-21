@@ -30,6 +30,11 @@ dependencies {
 	implementation(platform("org.springframework.ai:spring-ai-bom:1.0.0"))
 	implementation("org.springframework.ai:spring-ai-starter-model-openai")
 
+	// Kotlin 코루틴 + Flow를 쓰는 경우 (예: runBlocking, collect 등)
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+
+	// Spring WebFlux 필요 (WebClient 기반 처리)
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
