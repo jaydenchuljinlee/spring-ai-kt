@@ -20,7 +20,7 @@ class OutputConverterTest {
     fun outputConverterTest() {
         val chatClient: ChatClient = chatClientBuilder.build()
 
-        val userInput = "오늘 날씨는 {city} 어때? 그리고 {city}의 내일 날씨는 어때? 답변은 JSON 형식으로 해줘. 예시: {\"today\": \"\", \"tomorrow\": \"\"}"
+        val userInput = "오늘 날씨는 {city} 어때? 그리고 {city}의 내일 날씨는 어때? 답변은 JSON 형식으로 해줘."
         val promptTemplate = PromptTemplate.builder()
             .template(userInput)
             .variables(mapOf("city" to "서울"))
@@ -40,8 +40,8 @@ class OutputConverterTest {
     }
 
     data class WeatherInfo(
-        val today: String,
-        val tomorrow: String
+        val today: String?,
+        val tomorrow: String?
     )
 
 }
