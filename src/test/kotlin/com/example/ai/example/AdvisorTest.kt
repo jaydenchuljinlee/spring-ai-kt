@@ -1,5 +1,6 @@
 package com.example.ai.example
 
+import com.example.ai.common.advisor.MyAdvisor
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.ai.chat.client.ChatClient
@@ -22,7 +23,7 @@ class AdvisorTest {
         val prompt = Prompt("Spring AI에 대해서 알려줄래?")
 
         val response = chatClient.prompt(prompt)
-            .advisors(SimpleLoggerAdvisor())
+            .advisors(MyAdvisor())
             .call()
             .content();
 
