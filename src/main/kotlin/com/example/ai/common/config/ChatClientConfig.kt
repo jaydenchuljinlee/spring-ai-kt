@@ -1,6 +1,8 @@
 package com.example.ai.common.config
 
 import io.micrometer.observation.ObservationRegistry
+import org.springframework.ai.chat.client.ChatClient
+import org.springframework.ai.chat.client.DefaultChatClient
 import org.springframework.ai.chat.model.ChatModel
 import org.springframework.ai.model.ApiKey
 import org.springframework.ai.model.tool.DefaultToolExecutionEligibilityPredicate
@@ -20,61 +22,68 @@ import org.springframework.web.reactive.function.client.WebClient
 
 
 @Configuration
-class ChatClientConfig {
-    @Value("\${OPENAI_API_KEY}")
-    lateinit var openAiKey: String
+class ChatClientConfig(
+    private val chatClientBuilder: ChatClient.Builder
+) {
     @Bean
-    fun openAiApi(): OpenAiApi {
-        val apiKey = ApiKey({ openAiKey })
-
-        return OpenAiApi(
-            "https://api.openai.com/v1",
-            apiKey,
-            LinkedMultiValueMap(),
-            "/chat/completions",
-            "/embeddings",
-            RestClient.builder(),
-            WebClient.builder(),
-            DefaultResponseErrorHandler()
-        )
+    fun openAiChatClient(): ChatClient {
+        return chatClientBuilder.build()
     }
 
-    @Bean
-    fun openAiChatOptions(): OpenAiChatOptions {
-        return OpenAiChatOptions.builder()
-            .model("gpt-3.5-turbo")
-            .temperature(0.7)
-            .maxTokens(1024)
-            .build()
-    }
-
-
-    @Bean
-    fun observationRegistry(): ObservationRegistry {
-        return ObservationRegistry.create()
-    }
-
-    @Bean
-    fun toolExecutionEligibilityPredicate(): ToolExecutionEligibilityPredicate {
-        return DefaultToolExecutionEligibilityPredicate()
-    }
-
-    @Bean
-    fun chatModel(
-        openAiApi: OpenAiApi,
-        openAiChatOptions: OpenAiChatOptions,
-        toolCallingManager: ToolCallingManager,
-        retryTemplate: RetryTemplate,
-        observationRegistry: ObservationRegistry,
-        toolExecutionEligibilityPredicate: ToolExecutionEligibilityPredicate
-    ): ChatModel {
-        return OpenAiChatModel(
-            openAiApi,
-            openAiChatOptions,
-            toolCallingManager,
-            retryTemplate,
-            observationRegistry,
-            toolExecutionEligibilityPredicate
-        )
-    }
+//    @Value("\${OPENAI_API_KEY}")
+//    lateinit var openAiKey: String
+//    @Bean
+//    fun openAiApi(): OpenAiApi {
+//        val apiKey = ApiKey({ openAiKey })
+//
+//        return OpenAiApi(
+//            "https://api.openai.com/v1",
+//            apiKey,
+//            LinkedMultiValueMap(),
+//            "/chat/completions",
+//            "/embeddings",
+//            RestClient.builder(),
+//            WebClient.builder(),
+//            DefaultResponseErrorHandler()
+//        )
+//    }
+//
+//    @Bean
+//    fun openAiChatOptions(): OpenAiChatOptions {
+//        return OpenAiChatOptions.builder()
+//            .model("gpt-3.5-turbo")
+//            .temperature(0.7)
+//            .maxTokens(1024)
+//            .build()
+//    }
+//
+//
+//    @Bean
+//    fun observationRegistry(): ObservationRegistry {
+//        return ObservationRegistry.create()
+//    }
+//
+//    @Bean
+//    fun toolExecutionEligibilityPredicate(): ToolExecutionEligibilityPredicate {
+//        return DefaultToolExecutionEligibilityPredicate()
+//    }
+//
+//    @Bean
+//    fun chatModel(
+//        openAiApi: OpenAiApi,
+//        openAiChatOptions: OpenAiChatOptions,
+//        toolCallingManager: ToolCallingManager,
+//        retryTemplate: RetryTemplate,
+//        observationRegistry: ObservationRegistry,
+//        toolExecutionEligibilityPredicate: ToolExecutionEligibilityPredicate
+//    ): ChatModel {
+//        return OpenAiChatModel(
+//            openAiApi,
+//            openAiChatOptions,
+//            toolCallingManager,
+//            retryTemplate,
+//            observationRegistry,
+//            toolExecutionEligibilityPredicate
+//        )
+//    }
 }
