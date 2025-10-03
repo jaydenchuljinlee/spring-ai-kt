@@ -15,7 +15,7 @@ class AdvisorTest {
     @Autowired
     lateinit var chatClientBuilder: ChatClient.Builder
 
-    @DisplayName("OutputConverter를 사용한 예제")
+    @DisplayName("Custom Advisor를 사용한 예제")
     @Test
     fun loggerAdvisorTest() {
         val chatClient: ChatClient = chatClientBuilder.build()
@@ -23,7 +23,6 @@ class AdvisorTest {
         val prompt = Prompt("Spring AI에 대해서 알려줄래?")
 
         val response = chatClient.prompt(prompt)
-            .advisors(MyAdvisor())
             .call()
             .content();
 
