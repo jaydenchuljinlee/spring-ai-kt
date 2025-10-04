@@ -29,6 +29,7 @@ dependencies {
 
 	implementation(platform("org.springframework.ai:spring-ai-bom:1.0.0"))
 	implementation("org.springframework.ai:spring-ai-starter-model-openai")
+	implementation("org.springframework.ai:spring-ai-starter-model-chat-memory-repository-jdbc")
 
 	// Kotlin 코루틴 + Flow를 쓰는 경우 (예: runBlocking, collect 등)
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
