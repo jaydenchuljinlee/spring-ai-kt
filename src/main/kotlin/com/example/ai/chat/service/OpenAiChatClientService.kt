@@ -17,6 +17,11 @@ class OpenAiChatClientService(
     }
 
     override fun sendMessageWithConversation(userMessage: String, conversationMessages: List<Message>): Message {
-        TODO("Not yet implemented")
+        val message = openAiChatClient.prompt()
+            .user(userMessage)
+            .messages(conversationMessages)
+            .call()
+            .chatResponse()!!.result.output
+        return message
     }
 }
