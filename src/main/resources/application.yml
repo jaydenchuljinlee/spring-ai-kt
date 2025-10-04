@@ -9,3 +9,7 @@ spring:
       chat:
         options:
           model: gpt-3.5-turbo
+
+chat:
+  memory:
+    max-messages: 20
