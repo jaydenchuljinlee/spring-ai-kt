@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class CustomMessageWindowChatMemory(
-    private val chatMemoryRepository: ChatMemoryRepository,
+    private val inMemoryChatMemoryRepository: ChatMemoryRepository,
     @Value("\${chat.memory.max-messages}")
     var maxMessages: Int
 ): ChatMemory {
@@ -20,19 +20,19 @@ class CustomMessageWindowChatMemory(
         require(messages.isNotEmpty()) { "messages cannot be empty" }
         require(messages.none { it == null }) { "messages cannot contain null elements" }
 
-        val memoryMessages = chatMemoryRepository.findByConversationId(conversationId)
+        val memoryMessages = inMemoryChatMemoryRepository.findByConversationId(conversationId)
         val processedMessages = this.process(memoryMessages, messages);
-        chatMemoryRepository.saveAll(conversationId, processedMessages.toList())
+        inMemoryChatMemoryRepository.saveAll(conversationId, processedMessages.toList())
     }
 
     override fun get(conversationId: String): List<Message> {
         require(conversationId.isNotBlank()) { "conversationId cannot be null or empty" }
-        return chatMemoryRepository.findByConversationId(conversationId)
+        return inMemoryChatMemoryRepository.findByConversationId(conversationId)
     }
 
     override fun clear(conversationId: String) {
         require(conversationId.isNotBlank()) { "conversationId cannot be null or empty" }
-        chatMemoryRepository.deleteByConversationId(conversationId)
+        inMemoryChatMemoryRepository.deleteByConversationId(conversationId)
     }
 
     private fun process(memoryMessages: List<Message>, newMessages: List<Message>): List<Message> {
