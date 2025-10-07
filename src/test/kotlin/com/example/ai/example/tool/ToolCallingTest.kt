@@ -13,12 +13,27 @@ class ToolCallingTest {
     @Autowired
     lateinit var chatClientBuilder: ChatClient.Builder
 
-    @DisplayName("Tool 어노테이션을 사용한 예제")
+    @DisplayName("Tool 어노테이션을 사용한 Retrieval 예제")
     @Test
-    fun dateTimeToolsTest() {
+    fun retrievalToolsTest() {
         val chatClient: ChatClient = chatClientBuilder.build()
 
         val prompt = Prompt("What day is tomorrow?")
+
+        val response = chatClient.prompt(prompt)
+            .tools(DateTimeTools())
+            .call()
+            .content();
+
+        println(response)
+    }
+
+    @DisplayName("Tool 어노테이션을 사용한 Take Action 예제")
+    @Test
+    fun takeActionToolsTest() {
+        val chatClient: ChatClient = chatClientBuilder.build()
+
+        val prompt = Prompt("Can you set an alarm 10 minutes from now?")
 
         val response = chatClient.prompt(prompt)
             .tools(DateTimeTools())
