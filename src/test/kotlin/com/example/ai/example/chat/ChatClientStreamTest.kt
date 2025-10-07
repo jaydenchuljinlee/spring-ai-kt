@@ -1,8 +1,7 @@
-package com.example.ai.example
+package com.example.ai.example.chat
 
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.ai.chat.client.ChatClient

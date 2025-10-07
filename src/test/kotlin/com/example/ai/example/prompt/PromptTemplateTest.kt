@@ -1,4 +1,4 @@
-package com.example.ai.example
+package com.example.ai.example.prompt
 
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

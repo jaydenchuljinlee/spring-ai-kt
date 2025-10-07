@@ -15,6 +15,7 @@ class CustomMessageWindowChatMemory(
 ): ChatMemory {
 
     override fun add(conversationId: String, messages: List<Message>) {
+
         require(conversationId.isNotBlank()) { "conversationId cannot be null or empty" }
         require(messages.isNotEmpty()) { "messages cannot be empty" }
         require(messages.none { it == null }) { "messages cannot contain null elements" }

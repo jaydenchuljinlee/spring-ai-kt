@@ -1,10 +1,8 @@
-package com.example.ai.example
+package com.example.ai.example.advisor
 
-import com.example.ai.common.advisor.MyAdvisor
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.ai.chat.client.ChatClient
-import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
