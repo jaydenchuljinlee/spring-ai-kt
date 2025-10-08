@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.prompt.Prompt
+import org.springframework.ai.support.ToolCallbacks
+import org.springframework.ai.tool.ToolCallback
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -37,6 +39,23 @@ class ToolCallingTest {
 
         val response = chatClient.prompt(prompt)
             .tools(DateTimeTools())
+            .call()
+            .content();
+
+        println(response)
+    }
+
+    @DisplayName("ChatClient.builder() 옵션에 defaultCallbacks를 사용한 예제")
+    @Test
+    fun defaultCallbackTest() {
+        val toolCallback = ToolCallbacks.from(DateTimeTools())
+        val chatClient = chatClientBuilder
+            .defaultToolCallbacks(toolCallback.toList())
+            .build()
+
+        val prompt = Prompt("What day is tomorrow?")
+
+        val response = chatClient.prompt(prompt)
             .call()
             .content();
 
