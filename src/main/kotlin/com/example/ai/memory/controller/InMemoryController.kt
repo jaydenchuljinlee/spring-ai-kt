@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/memory/in-memory")
 @RestController
 class InMemoryController(
-    private val inMemoryMemoryService: ChatMemoryService
+    private val inMemoryService: ChatMemoryService
 ) {
     @PostMapping()
     fun sendMessage(userMessage: String): String {
-        return inMemoryMemoryService.createConversation(userMessage)
+        return inMemoryService.createConversation(userMessage)
     }
 
     @PostMapping("/{conversationId}")
     fun sendMessageWithConversation(
         @PathVariable("conversationId") conversationId: String,
         userMessage: String): Message {
-        return inMemoryMemoryService.sendMessage(conversationId, userMessage)
+        return inMemoryService.sendMessage(conversationId, userMessage)
     }
 }

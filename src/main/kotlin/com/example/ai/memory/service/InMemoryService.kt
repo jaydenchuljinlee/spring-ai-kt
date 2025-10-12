@@ -5,7 +5,7 @@ import com.example.ai.memory.repository.MemoryRepository
 import org.springframework.ai.chat.messages.Message
 import org.springframework.stereotype.Service
 
-@Service
+@Service("inMemoryService")
 class InMemoryService(
     private val openAiChatClientService: ChatClientService,
     private val inMemoryChatRepository: MemoryRepository
