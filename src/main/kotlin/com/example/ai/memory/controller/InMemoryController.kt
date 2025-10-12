@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RequestMapping("/memory")
+@RequestMapping("/memory/in-memory")
 @RestController
-class ChatMemoryController(
-    private val chatMemoryService: ChatMemoryService
+class InMemoryController(
+    private val inMemoryMemoryService: ChatMemoryService
 ) {
-    @PostMapping("/in-memory")
+    @PostMapping()
     fun sendMessage(userMessage: String): String {
-        return chatMemoryService.createConversation(userMessage)
+        return inMemoryMemoryService.createConversation(userMessage)
     }
 
-    @PostMapping("/in-memory/{conversationId}")
+    @PostMapping("/{conversationId}")
     fun sendMessageWithConversation(
         @PathVariable("conversationId") conversationId: String,
         userMessage: String): Message {
-        return chatMemoryService.sendMessage(conversationId, userMessage)
+        return inMemoryMemoryService.sendMessage(conversationId, userMessage)
     }
 }
